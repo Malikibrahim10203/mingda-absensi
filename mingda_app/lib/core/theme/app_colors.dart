@@ -33,9 +33,13 @@ class AppColors {
 
   // Elevation & Shadows
   static final Color shadowCard = const Color(0xFF000000).withOpacity(0.04);
+  static final Color shadowInput = const Color(0xFFD8E6FD);
 
   // Text Colors
   static const Color textPrimary = Color(0xFF24252C);
   static const Color textSecondary = Color(0xFF535862);
   static const Color textTertiary = Color(0xFF9DB2CE);
+
+  // Input Border Color
+  static const Color inputColorBorder = Color(0xFF71717A);
 }
