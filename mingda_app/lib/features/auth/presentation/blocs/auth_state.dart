@@ -1,27 +1,26 @@
-part of 'auth_bloc.dart';
+import 'package:mingda_app/features/auth/domain/entities/login_entity.dart';
+import 'package:mingda_app/features/auth/domain/entities/user_entity.dart';
 
-abstract class AuthState extends Equatable {
-  AuthState(this.name);
+abstract class AuthState {}
 
-  String name;
+class AuthInitial extends AuthState {}
 
-  @override
-  // TODO: implement props
-  List<Object?> get props => [this.name];
+class AuthLoading extends AuthState {}
+
+// Login berhasil
+class AuthAuthenticated extends AuthState {
+  final LoginEntity login;
+
+  AuthAuthenticated(this.login);
+
+  UserEntity get user => login.userModel;
 }
 
-class InitialState extends AuthState {
-  InitialState(super.name);
-}
+// Belum login / token expired
+class AuthUnauthenticated extends AuthState {}
 
-class LoadingState extends AuthState {
-  LoadingState(super.name);
-}
+class AuthError extends AuthState {
+  final String message;
 
-class FinishState extends AuthState {
-  FinishState(super.name);
-}
-
-class ErrorState extends AuthState {
-  ErrorState(super.name);
+  AuthError(this.message);
 }

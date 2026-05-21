@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mingda_app/core/theme/app_colors.dart';
 import 'package:mingda_app/core/theme/app_text_styles.dart';
+import 'package:mingda_app/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:mingda_app/features/auth/presentation/widgets/InputAuth.dart';
 
 class LoginPage extends StatefulWidget {
@@ -25,6 +27,15 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    void _onLoginPressed() {
+      context.read<AuthBloc>().add(
+        LoginSubmitted(
+          email: 'ikhwanudinaldi04@gmail.com',
+          password: 'kepo12312',
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: AppColors.deepTeal,
       body: SizedBox(
@@ -128,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                         width: 322.w,
                         height: 45.w,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: _onLoginPressed,
                           child: Text(
                             "Sign In",
                             style: GoogleFonts.inter(

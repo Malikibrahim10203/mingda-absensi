@@ -19,10 +19,20 @@ class LoginModel extends LoginEntity {
 
     return LoginModel(
       success: json['success'] as bool,
-      messages: json['messages'] as String,
+      messages: json['message'],
       tokenType: dataFields['token_type'] as String,
       token: dataFields['token'] as String,
       userModel: UserModel.fromJson(dataFields['user'] as Map<String, dynamic>),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'success': success,
+      'messages': messages,
+      'tokenType': tokenType,
+      'token': token,
+      'userModel': userModel,
+    };
   }
 }
