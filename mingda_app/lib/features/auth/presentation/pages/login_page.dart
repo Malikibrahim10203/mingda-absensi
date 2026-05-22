@@ -30,8 +30,8 @@ class _LoginPageState extends State<LoginPage> {
     void _onLoginPressed() {
       context.read<AuthBloc>().add(
         LoginSubmitted(
-          email: 'ikhwanudinaldi04@gmail.com',
-          password: 'kepo12312',
+          email: '',
+          password: '',
         ),
       );
     }

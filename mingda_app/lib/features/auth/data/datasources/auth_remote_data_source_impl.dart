@@ -8,7 +8,7 @@ import 'package:mingda_app/features/auth/data/models/login_model.dart';
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   static const baseURL = "https://absensi.mingda.my.id/api";
 
-  Future<LoginModel> login({
+  Future<LoginModel> SignInDataSource({
     required String email,
     required String password,
   }) async {
@@ -29,6 +29,23 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
     if (response.statusCode == 422) {
       throw ValidationFailure(body['message'] ?? 'Format email tidak valid');
+    }
+
+    throw ServerFailure(
+      body['message'] ?? 'Server error: ${response.statusCode}',
+    );
+  }
+
+  Future<void> SignOutDataSource(String token) async {
+    final response = await http.post(
+      Uri.parse('${baseURL}/auth/logout'),
+      headers: {'X-Authorization': 'Bearer $token'},
+    );
+
+    final body = jsonDecode(response.body) as Map<String, dynamic>;
+
+    if (response.statusCode == '401') {
+      throw AuthFailure(body['message']);
     }
 
     throw ServerFailure(

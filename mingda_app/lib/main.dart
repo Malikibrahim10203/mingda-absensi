@@ -2,24 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mingda_app/app/config/app_routes.dart';
+import 'package:mingda_app/features/auth/data/datasources/auth_local_data_source.dart';
+import 'package:mingda_app/features/auth/data/datasources/auth_local_data_source_impl.dart';
 import 'package:mingda_app/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:mingda_app/features/auth/data/datasources/auth_remote_data_source_impl.dart';
 import 'package:mingda_app/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:mingda_app/features/auth/domain/repositories/auth_repository.dart';
+import 'package:mingda_app/features/auth/domain/usecases/savetoken_usecase.dart';
 import 'package:mingda_app/features/auth/domain/usecases/signin_usecase.dart';
 import 'package:mingda_app/features/auth/presentation/blocs/auth_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   AuthRemoteDataSource authRemoteDataSource = AuthRemoteDataSourceImpl();
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  AuthLocalDataSource authLocalDataSource = AuthLocalDataSourceImpl(
+    sharedPreferences: sharedPreferences,
+  );
   final AuthRepository authRepository = AuthRepositoryImpl(
     authRemoteDataSource: authRemoteDataSource,
+    authLocalDataSource: authLocalDataSource,
   );
 
   SigninUsecase signinUsecase = SigninUsecase(authRepository);
+  SavetokenUsecase savetokenUsecase = SavetokenUsecase(
+    authRepository: authRepository,
+  );
 
   runApp(
     BlocProvider(
-      create: (_) => AuthBloc(signinUsecase: signinUsecase),
+      create: (_) => AuthBloc(
+        signinUsecase: signinUsecase,
+        savetokenUsecase: savetokenUsecase,
+      ),
       child: const MyApp(),
     ),
   );
