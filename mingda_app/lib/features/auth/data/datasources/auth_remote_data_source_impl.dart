@@ -53,6 +53,23 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     );
   }
 
+  Future<void> CheckToken(String token) async {
+    final response = await http.post(
+      Uri.parse('${baseURL}/mobile/v1/profile'),
+      headers: {'X-Authorization': 'Bearer $token'},
+    );
+
+    final body = jsonDecode(response.body) as Map<String, dynamic>;
+
+    if (response.statusCode == '401') {
+      throw AuthFailure(body['message']);
+    }
+
+    throw ServerFailure(
+      body['message'] ?? 'Server error: ${response.statusCode}',
+    );
+  }
+
   // Future<UserModel> checkToken({required String token}) async {
   //   final response = await http.post(Uri.parse('$baseURL/api/'));
   //

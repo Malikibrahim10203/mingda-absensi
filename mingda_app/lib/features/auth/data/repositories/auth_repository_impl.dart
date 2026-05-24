@@ -54,6 +54,33 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 
+  Future<Either<Failure, String>> GetToken() async {
+    try {
+      final String? token = await authLocalDataSource.getToken();
+      if (token == null) throw StorageNotFoundFailure('Token tidak tersedia.');
+      return right(token);
+    } on Failure catch (f) {
+      return left(f);
+    } on SocketException {
+      return left(NetworkFailure());
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  Future<Either<Failure, void>> CheckToken(String token) async {
+    try {
+      await authRemoteDataSource.CheckToken(token);
+      return right(null);
+    } on Failure catch (f) {
+      return left(f);
+    } on SocketException {
+      return left(NetworkFailure());
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
   Future<Either<Failure, void>> SaveToken(String token) async {
     try {
       await authLocalDataSource.saveToken(token);

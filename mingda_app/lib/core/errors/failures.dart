@@ -35,3 +35,13 @@ class AuthFailure extends Failure {
 class TimeoutFailure extends Failure {
   const TimeoutFailure() : super('Koneksi timeout, coba lagi');
 }
+
+// SharedPreferences gagal baca data — key tidak ditemukan
+class StorageNotFoundFailure extends Failure {
+  const StorageNotFoundFailure(super.message);
+}
+
+// SharedPreferences gagal tulis atau hapus data
+class StorageWriteFailure extends Failure {
+  const StorageWriteFailure(super.message);
+}

@@ -10,7 +10,10 @@ abstract class AuthRepository {
   });
   Future<Either<Failure, void>> SignOut({required String token});
   //
-  // Future<Either<Failure, String>> CheckToken();
+
+  Future<Either<Failure, String>> GetToken();
+  Future<Either<Failure, void>> CheckToken(String token);
+
   Future<Either<Failure, void>> SaveToken(String token);
   Future<Either<Failure, void>> DeleteToken();
   Future<Either<Failure, void>> SaveUser(UserModel user);

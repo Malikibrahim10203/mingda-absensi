@@ -7,6 +7,11 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
 
   AuthLocalDataSourceImpl({required this.sharedPreferences});
 
+  Future<String?> getToken() async {
+    final result = await sharedPreferences.getString('token');
+    return result;
+  }
+
   Future<void> saveToken(String token) async {
     await sharedPreferences.setString('token', token);
   }
