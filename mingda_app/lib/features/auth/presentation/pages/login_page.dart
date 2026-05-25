@@ -25,29 +25,22 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    // void _onLoginPressed() {
-    //   context.read<AuthBloc>().add(
-    //     LoginSubmitted(
-    //       email: '',
-    //       password: '',
-    //     ),
-    //   );
-    // }
-
     return Scaffold(
       backgroundColor: AppColors.deepTeal,
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: Stack(
-          alignment: AlignmentGeometry.bottomCenter,
+      body: SingleChildScrollView(
+        child: Column(
           children: [
+            SizedBox(height: 147.w),
             Container(
               width: double.infinity,
               height: 665.w,
+              margin: EdgeInsets.zero,
               decoration: BoxDecoration(
                 color: AppColors.white,
-                borderRadius: BorderRadius.circular(30.w),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30.w),
+                  topRight: Radius.circular(30.w),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,

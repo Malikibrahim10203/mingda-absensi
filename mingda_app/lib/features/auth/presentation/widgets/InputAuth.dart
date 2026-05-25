@@ -25,6 +25,7 @@ class InputAuth extends StatefulWidget {
 
 class _InputAuthState extends State<InputAuth> {
   late final FocusNode _focusNode;
+  late bool _obsecureText = false;
 
   @override
   void initState() {
@@ -52,7 +53,7 @@ class _InputAuthState extends State<InputAuth> {
         spacing: 8.w,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.label, style: AppTextStyles.inter13RegularPrimary),
+          Text(widget.label, style: TextStyle(color: Colors.black87)),
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(13.w),
@@ -71,11 +72,21 @@ class _InputAuthState extends State<InputAuth> {
             child: TextFormField(
               controller: widget.controller,
               focusNode: _focusNode,
-              obscureText: widget.isPassword,
+              obscureText: widget.isPassword ? _obsecureText : false,
               validator: widget.validator,
               style: AppTextStyles.inputTextStyles,
               decoration: InputDecoration(
                 hintText: widget.hintText,
+                suffixIcon: widget.isPassword
+                    ? IconButton(
+                        onPressed: () => setState(() {
+                          _obsecureText = !_obsecureText;
+                        }),
+                        icon: _obsecureText
+                            ? Icon(Icons.visibility)
+                            : Icon(Icons.visibility_off),
+                      )
+                    : null,
                 contentPadding: EdgeInsets.all(8.w),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.w),

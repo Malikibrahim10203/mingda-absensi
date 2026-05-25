@@ -28,12 +28,10 @@ class AuthRepositoryImpl implements AuthRepository {
       );
 
       return right(result);
-
-      // Jika error Failure dari data source
+      // Error Failure dari data source
     } on Failure catch (f) {
       return left(f);
-
-      // Jika status code blm terbentuk
+      // Error status code blm terbentuk
     } on SocketException {
       return left(NetworkFailure());
     } catch (e) {

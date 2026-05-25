@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:mingda_app/core/errors/failures.dart';
-import 'package:mingda_app/features/auth/domain/entities/login_entity.dart';
 import 'package:mingda_app/features/auth/domain/repositories/auth_repository.dart';
 
 class LoginParams {
@@ -14,7 +13,7 @@ class SigninUsecase {
   final AuthRepository authRepository;
   SigninUsecase(this.authRepository);
 
-  Future<Either<Failure, LoginEntity>> call(LoginParams params) async {
+  Future<Either<Failure, void>> call(LoginParams params) async {
     if (params.email.isEmpty) {
       return Left(ValidationFailure('Email tidak boleh kosong'));
     }
@@ -33,10 +32,17 @@ class SigninUsecase {
 
     print("usecase");
 
-    return await authRepository.SignIn(
+    final loginEntity = await authRepository.SignIn(
       email: params.email,
       password: params.password,
     );
+
+    return loginEntity.fold((l) => Left(l), (r) async {
+      await authRepository.SaveToken(r.token);
+      await authRepository.SaveUser(r.userModel);
+
+      return right(null);
+    });
   }
 
   bool _isValidEmail(String email) {

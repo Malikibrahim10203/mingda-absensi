@@ -26,19 +26,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       result.fold(
         // Login
-        (failure) => emit(AuthError(failure.message)),
-
+        (failure) => emit(AuthError(failure.toString())),
         // Login
-        (login) async {
-          final saveTokenResult = await savetokenUsecase(login.token);
-          // Save User
-          // final saveUserResult = await saveUserUsecase(login.userModel);
-          saveTokenResult.fold(
-            (cacheFailure) async => emit(AuthError(cacheFailure.message)),
-            (_) {
-              emit(AuthAuthenticated(login));
-            },
-          );
+        (login) {
+          emit(AuthAuthenticated());
         },
       );
     });
