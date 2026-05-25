@@ -204,9 +204,9 @@ void _initAuth() {
 ### Contoh yang Salah (Memory Leak)
 
 ```dart
-// JANGAN LAKUKAN INI — BLoC sebagai Singleton menyebabkan state lama
+// ⛔ JANGAN LAKUKAN INI — BLoC sebagai Singleton menyebabkan state lama
 // tidak di-reset saat halaman dibuka ulang
-sl.registerLazySingleton(() => AuthBloc(loginUseCase: sl()));
+// sl.registerLazySingleton(() => AuthBloc(loginUseCase: sl()));
 ```
 
 ---
@@ -366,11 +366,11 @@ flutter test
 
 ## Kontribusi
 
-1. Buat branch baru dari `develop`: `git checkout -b feat/nama-fitur`
+1. Buat branch baru dari `develop`: `git checkout -b features/nama-fitur`
 2. Ikuti struktur folder dan aturan DI yang telah ditetapkan.
 3. Pastikan semua test lulus sebelum membuat Pull Request.
-4. Gunakan format commit: `feat:`, `fix:`, `refactor:`, `docs:`, `test:`
+4. Gunakan format commit: `features:`, `fix:`, `refactor:`, `docs:`, `test:`
 
 ---
 
-> **Catatan:** Dokumentasi ini adalah *living document*. Perbarui README jika ada keputusan arsitektur baru yang disepakati tim.
+> **Catatan:** Dokumentasi ini adalah *living document*
