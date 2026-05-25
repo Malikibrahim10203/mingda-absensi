@@ -2,7 +2,7 @@
 
 > Aplikasi Flutter yang dibangun dengan **Clean Architecture** dan **BLoC Pattern** untuk memastikan skalabilitas, testabilitas, dan konsistensi kolaborasi tim.
 >
-> *Work in progress — nama aplikasi menyusul.*
+> *Work in progress — Mingda Absensi.*
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?logo=flutter)
 ![Dart](https://img.shields.io/badge/Dart-3.x-0175C2?logo=dart)
@@ -16,7 +16,7 @@
 ```
 lib/
 ├── app/
-│   └── config/                   # Konfigurasi global aplikasi
+│   └── config/                    # Konfigurasi global aplikasi
 │       ├── app_config.dart        # Environment config (dev/staging/prod)
 │       ├── routes/                # Definisi routing aplikasi
 │       └── app.dart               # Root widget & MaterialApp
